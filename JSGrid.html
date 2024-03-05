@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../css/fontawesome6.1.1/css/all.min.css" rel="stylesheet" />
+
+    <style>
+            .JSGrid {
+                clear: both;
+            }
+
+            .GridHeaderColumn.ui-sortable-helper {
+                border-width: 0 1px 0 1px;
+            }
+
+            .GridHeaderColumn div {
+                vertical-align: middle;
+                text-align: center;
+                padding: 2px 0px;
+                position: relative;
+                font-size: 12px;
+            }
+
+            .GridTextBox {
+                font-size: 12px !important;
+            }
+
+            .GridPagerButton {
+                color: #f6a828;
+                border-radius: 3px;
+                padding: 2px;
+                border: 1px solid #f6a828;
+                display: inline-block;
+                margin: 1px;
+            }
+
+                .GridPagerButton:hover {
+                    color: #1c94c4;
+                    border-color: #1c94c4;
+                }
+
+            .GridPager {
+                background-color: #f6f6f6;
+            }
+
+            .GridHeaderResizeHandle {
+                cursor: w-resize;
+                width: 0px;
+                height: 100%;
+                position: absolute;
+                border-bottom: 0;
+                border-top: 0;
+            }
+
+            .GridHeaderResizeBar {
+                cursor: w-resize;
+                font-size: 0;
+                width: 4px;
+                height: 100%;
+                position: absolute;
+                /*float:right;*/
+                /*margin:-2px -2px -2px 0;*/
+                /*background:red;*/
+                right: 0px;
+                top: 0px;
+                z-index: 1;
+            }
+
+            .GridContentTable, .GridFooterTable, .GridHeaderTable, .GridPager {
+                margin: 0;
+                padding: 0;
+                table-layout: fixed !important;
+                width: 100%;
+                border-width: 0;
+                background-color: #f6f6f6;
+                border: 1px solid #cccccc;
+                font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            .GridFooterTable, .GridHeaderTable, .GridPager {
+                color: #1c94c4;
+            }
+
+            .GridContentTable {
+                background-color: #fff0a5;
+            }
+
+            .GridFooterTable {
+                /*border-width:1px 0px 0px 0px;*/
+            }
+
+                .GridFooterTable td, .GridHeaderTable td, .GridContentTable td {
+                    height: 20px;
+                    vertical-align: middle;
+                    /*border-bottom-width:1px;
+        border-bottom-color:inherit;
+        border-bottom-style:solid;*/
+                    /*border:1px solid red;*/
+                    border-width: 0px 1px 1px 0px;
+                    border-color: inherit;
+                    border-style: solid;
+                    /*border-right-color:inherit;
+        border-bottom-color:inherit;*/
+                    /*border-color:inherit !important;*/
+                }
+
+            .GridContentTable tr, .GridContentTable tbody {
+                border-color: inherit;
+                /*border-style:inherit !important;
+        border-color:#4cff00;*/
+                /*border-right-color:inherit;
+        border-bottom-color:inherit;*/
+                /*border:1px;
+        font-weight:normal;
+        overflow:hidden;
+        white-space:pre;
+        height:22px;
+        padding:0 2px 0 2px;
+        border-bottom-width:1px;
+        border-bottom-color:inherit;
+        border-bottom-style:solid;*/
+            }
+            /*.GridContentTR*/
+            .GridContentTable tr, .GridHeaderTable tr, .GridFooterTable tr {
+                /*border:1px;*/
+                /*font-weight:normal;
+        overflow:hidden;
+        white-space:pre;
+        height:22px;
+        padding:0 2px 0 2px;
+        border-bottom-width:1px;
+        border-bottom-color:inherit;
+        border-bottom-style:solid;*/
+            }
+
+            td.GridContenttxtTD {
+                overflow: hidden;
+                height: auto;
+            }
+
+            .GridContentlblTD {
+                padding: 0px 5px 0px 5px;
+            }
+
+            .GridContentcbxTD {
+                text-align: center;
+                overflow: hidden;
+            }
+        .float {
+            float: left;
+        }
+
+        .floatInverse {
+            float: right;
+        }
+    </style>
+    <script type="text/javascript">
+        var resources = [];
+        function getMessage(message) {
+            let resource = resources.find(r => r.LabelCode == message);
+            if (resource) {
+                return resource.LabelText[isNull(lang, 'en')];
+            }
+            return message;
+        }
+        function toggle(elms, show) {
+            if (HTMLCollection.prototype.isPrototypeOf(elms))
+                elms = Array.prototype.slice.call(elms)
+            else if (!Array.isArray(elms))
+                elms = [elms];
+            elms.forEach(elm => {
+                if (show == undefined)
+                    show = !isVisible(elm);
+                if (show) {
+                    if (elm.dataset.olddisplay)
+                        elm.style.cssText = "display: " + elm.dataset.olddisplay + " !important";
+                    else if (elm.tagName == "TR")
+                        elm.style.cssText = "display: table-row !important";
+                    else
+                        elm.style.cssText = "display: inline-block !important";
+                } else {
+                    elm.dataset.olddisplay = window.getComputedStyle(elm, null).display;
+                    if (elm.dataset.olddisplay == 'none')
+                        delete elm.dataset.olddisplay;
+                    elm.style.cssText = "display: none !important";
+                }
+            })
+        }
+        function CheckArray(obj) {
+            if (obj == null)
+                return [];
+            else if (obj.length == null)
+                return [obj];
+            return obj;
+        }
+        function isVisible(elm) {
+            return !!(elm.offsetWidth || elm.offsetHeight || elm.getClientRects().length);
+        }
+        function ElmById(id) {
+            let elm;
+            if (event && event.target && event.target.nodeName != "#document" && event.target != window && event.target.closest('#Page')) {
+                elm = event.target.closest('#Page').querySelectorAll('#' + id)[0];
+            }
+            if (elm == null)
+                elm = document.getElementById(id);
+            return elm;
+        }
+        function ElmsByQuery(query) {
+            let elms;
+            if (event && event.target && event.target.nodeName != "#document" && event.target.closest('#Page')) {
+                elms = event.target.closest('#Page').querySelectorAll(query);
+            }
+            if (!elms || elms.length == 0)
+                elms = document.querySelectorAll(query);
+            return elms || [];
+        }
+        function isNull(value, IfNull) {
+            return (value == null || value == undefined || value.toString() == 'NaN' ? IfNull : value);
+        }
+        function isNullorEmpty(value, IfNull) {
+            return (value == null || value == undefined || value.toString() == 'NaN' || value.toString() == 'undefined' || value == '' ? IfNull : value);
+        }
+        function setFixed(obj) {
+            if (obj.step) {
+                let fraction = obj.step.length - 2;
+                fraction = fraction > 3 ? 3 : fraction;
+                if (fraction < 0)
+                    fraction = 0;
+                obj.value = parseFloat(obj.value).toFixed(fraction);
+            }
+        }
+    </script>
+    <script src="JSGrid.js"></script>
+
+</head>
+<body>
+    <div id="Grid"></div>
+</body>
+</html>
+<script type="text/javascript">
+    var objGrid = new JSGrid({
+        id: "Grid", Controls: [
+            { id: "CustomerID", LabelText: "Customer ID", dataField: "CustomerID", Width: 100, ControlType: ControlType.Label },
+            {
+                id: "CustomerName", LabelText: "Customer Name", dataField: "CustomerName", Width: 100, ControlType: ControlType.InputTextBox,
+                ExtraFooter: [{ id: 'qwe', AddProperty: '', ControlType: ControlType.Label, Text: 'wqerwqer' }]
+            },
+            {
+                id: "PhoneNumber", LabelText: "Phone Number", dataField: "PhoneNumber", Width: 100, ControlType: ControlType.InputTextBox,
+                ExtraFooter: [
+                    { id: 'qwe', AddProperty: '', ControlType: ControlType.InputTextBox, Text: 'safdsadf' },
+                    { id: 'qwe1', AddProperty: '', ControlType: ControlType.InputTextBox, Text: 'saf3e123dsadf' }]
+            },
+            { id: "Email", LabelText: "Email", dataField: "Email", Width: 100, ControlType: ControlType.InputTextBox },
+            { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
+        ]
+    });
+    objGrid.DataBind([{ "CustomerID": 1, CustomerName: "Adam", PhoneNumber:'+96234567890' }, { "CustomerID": 2, "CustomerName": "Yousef" }])
+</script>

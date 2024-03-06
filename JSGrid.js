@@ -337,7 +337,7 @@ JSGrid.prototype.GenerateExtraFooter = function () {
         ExtraFooter += "</tr>";
     }
     if (ExtraFooterFlag)
-        return `<tr><td><table cellpadding='0' cellspacing='0' style='table-layout:fixed;width:100vw'><colgroup id='${this.Grid.id}_ExtraFooter'>${CellCols}</colgroup>${ExtraFooter}</table></td></tr>`;
+        return `<tr><td><table cellpadding='0' class="summary" cellspacing='0' style='table-layout:fixed'><colgroup id='${this.Grid.id}_ExtraFooter'>${CellCols}</colgroup>${ExtraFooter}</table></td></tr>`;
     else
         return ""
 }

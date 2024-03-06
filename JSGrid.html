@@ -69,7 +69,7 @@
                 z-index: 1;
             }
 
-            .GridContentTable, .GridFooterTable, .GridHeaderTable{
+            .GridContentTable, .GridFooterTable, .GridHeaderTable , .GridPager{
                 margin: 0;
                 padding: 0;
                 table-layout: fixed !important;
@@ -84,15 +84,15 @@
             .GridPager{
                 margin: 0;
                 padding: 0;
-                position: fixed;
-                top:121px;
-                width: 97%;
+                table-layout: fixed !important;
+                width: 100%;
                 border-width: 0;
                 background-color: #f6f6f6;
                 border: 1px solid #cccccc;
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
                 font-size: 12px;
                 font-weight: bold;
+            
 
             }
 
@@ -223,6 +223,15 @@
 
         .GridHeaderColumn div {
             font-size: 10px; /* Adjust font size for smaller screens */
+        }
+
+        .GridPager{
+            position: fixed;
+                top:121px;
+                width: 97%;
+        }
+        .summary{
+            width: 100vw;
         }
     }
     </style>

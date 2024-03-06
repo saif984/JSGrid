@@ -5,8 +5,7 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="../css/fontawesome6.1.1/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet" />
 
     <style>
             .JSGrid {
@@ -70,7 +69,7 @@
                 z-index: 1;
             }
 
-            .GridContentTable, .GridFooterTable, .GridHeaderTable, .GridPager {
+            .GridContentTable, .GridFooterTable, .GridHeaderTable{
                 margin: 0;
                 padding: 0;
                 table-layout: fixed !important;
@@ -81,6 +80,19 @@
                 font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
                 font-size: 12px;
                 font-weight: bold;
+            }
+            .GridPager{
+                margin: 0;
+                padding: 0;
+                position: fixed;
+                width: 97%;
+                border-width: 0;
+                background-color: #f6f6f6;
+                border: 1px solid #cccccc;
+                font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+
             }
 
             .GridFooterTable, .GridHeaderTable, .GridPager {
@@ -152,6 +164,45 @@
                 text-align: center;
                 overflow: hidden;
             }
+            .ButtonList {
+    position: relative;
+}
+
+    .ButtonList label {
+        text-align: center;
+        font-size: 1.25em;
+        display: block;
+        cursor: pointer;
+        position: relative;
+    }
+    .ButtonList div {
+        position: absolute;
+        top: 100%;
+        display: none;
+        left: 0;
+        background: #333;
+        color: white;
+        z-index: 999;
+    }
+
+        .ButtonList div ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .ButtonList div a {
+            color: white;
+            display: block;
+            white-space: nowrap;
+            text-decoration: none;
+            border-bottom: 1px solid #999;
+            padding: 5px;
+        }
+.buttonListOpened {
+    display:block !important;
+    
+}
         .float {
             float: left;
         }
@@ -160,13 +211,12 @@
             float: right;
         }
 
-
-        @media only screen and (max-width: 768px) {
+          @media only screen and (max-width: 768px) {
         /* Styles for screens with a maximum width of 768px or smaller */
 
-        .JSGrid, .GridHeaderColumn, .GridTextBox, .GridPager,
+        .JSGrid, .GridHeaderColumn, .GridTextBox,
         .GridHeaderResizeHandle, .GridHeaderResizeBar, .GridContentTable, .GridFooterTable,
-        .GridHeaderTable, .GridPager {
+        .GridHeaderTable {
             width: 100%;
         }
 
@@ -250,16 +300,45 @@
                 obj.value = parseFloat(obj.value).toFixed(fraction);
             }
         }
+        function ToggleButtonList(ctrl, actions) {
+            let opened = ctrl.classList.contains('buttonListOpened');
+            Array.from(document.getElementsByClassName('buttonListOpened')).forEach(ctrl => ctrl.classList.remove('buttonListOpened'));
+            if (!opened) {
+                let html = "<ul>";
+                if (actions)
+                    actions.forEach(action => {
+                        html += `<li><a href=\"#\" onclick=\"EditRow({ TrackID: ${this.id}.GetValue('TrackID', ~RowNo~)})\">Edit</a></li>`;
+                    })
+                html += `<ul><li><a href=\"#\" onclick=\"EditRow({ TrackID: ${this.id}.GetValue('TrackID', ~RowNo~)})\">Edit</a></li>`;
+                html += "</ul>";
+                ctrl.innerHTML = html;
+                ctrl.classList.add('buttonListOpened');
+            }
+            event.preventDefault();
+            event.stopPropagation()
+            return false;
+        }
     </script>
     <script src="JSGrid.js"></script>
 
 </head>
 <body>
-    <div id="Grid"></div>
+    <div id="Page" data-pageid="page11">
+        <div id="Grid"></div>
+    </div>
 </body>
 </html>
 <script type="text/javascript">
-    var objGrid = new JSGrid({
+    window.page11 = {GetActions: ()=> {return [
+        {Action:'Action1', icon: '', ActionName:'Action1'},
+        {Action:'Action2', icon: '', ActionName:'Action2'},
+        {Action:'Action3', icon: '', ActionName:'Action3'},
+        {Action:'Action4', icon: '', ActionName:'Action4'},
+        {Action:'Action5', icon: '', ActionName:'Action5'},
+        {Action:'Action6', icon: '', ActionName:'Action6'},
+        {Action:'Action7', icon: '', ActionName:'Action7'},
+    ];},
+    objGrid : new JSGrid({
         id: "Grid", Controls: [
             { id: "CustomerID", LabelText: "Customer ID", dataField: "CustomerID", Width: 100, ControlType: ControlType.Label },
             {
@@ -274,7 +353,10 @@
             },
             { id: "Email", LabelText: "Email", dataField: "Email", Width: 100, ControlType: ControlType.InputTextBox },
             { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
+            { id: "actions", LabelText: "", Width: 50, ControlType: ControlType.ButtonsList },
         ]
-    });
-    objGrid.DataBind([{ "CustomerID": 1, CustomerName: "Adam", PhoneNumber:'+96234567890' }, { "CustomerID": 2, "CustomerName": "Yousef" }])
+    })
+    
+}
+window.page11.objGrid.DataBind([{ "CustomerID": 1, CustomerName: "Adam", PhoneNumber:'+96234567890' }, { "CustomerID": 2, "CustomerName": "Yousef" }])
 </script>

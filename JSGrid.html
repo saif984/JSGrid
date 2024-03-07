@@ -212,6 +212,16 @@
             float: right;
         }
 
+        .GridDiv{
+
+            overflow: auto;
+        }
+
+        .summary{
+            width: 100vw;
+        }
+
+
           @media only screen and (max-width: 768px) {
         /* Styles for screens with a maximum width of 768px or smaller */
 
@@ -227,17 +237,14 @@
 
         .GridPager{
             position: fixed;
-                top:121px;
+                
                 width: 97%;
         }
         
     }
-
-
+  
     @media only screen and (max-width: 580px) {
-        .summary{
-            width: 100vw;
-        }
+        
     }
     </style>
     <script type="text/javascript">
@@ -368,10 +375,14 @@
             },
             { id: "Email", LabelText: "Email", dataField: "Email", Width: 100, ControlType: ControlType.InputTextBox },
             { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
+            { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
+            { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
+            { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
+            { id: "Nationality", LabelText: "Nationality", dataField: "Nationality", Width: 100, ControlType: ControlType.ComboBox },
             { id: "actions", LabelText: "", Width: 50, ControlType: ControlType.ButtonsList },
         ]
     })
     
 }
-window.page11.objGrid.DataBind([{ "CustomerID": 1, CustomerName: "Adam", PhoneNumber:'+96234567890' }, { "CustomerID": 2, "CustomerName": "Yousef" }])
+window.page11.objGrid.DataBind([{ "CustomerID": 1, CustomerName: "Adam", PhoneNumber:'+96234567890' }, { "CustomerID": 2, "CustomerName": "Yousef" },{ "CustomerID": 3, CustomerName: "saif", PhoneNumber:'+9623456783' },{ "CustomerID": 4, CustomerName: "Ahmad", PhoneNumber:'+96234567833' },])
 </script>

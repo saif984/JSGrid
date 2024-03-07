@@ -551,7 +551,7 @@ JSGrid.prototype.isSummaryExist = function() {
 }
 JSGrid.prototype.GeneratePager = function () {
     var PagerHTML = '';
-    PagerHTML += '<div id=pager class="GridPager" ' + (this.Grid.ShowPager == false ? ' style="display:none;" ' : '') + '><div><table style="width: 100%; table-layout: fixed;" border="0" cellspacing="0" cellpadding="0"><tbody><tr>';
+    PagerHTML += '<div anchor="Grid_ExtraFooter" id=pager class="GridPager" ' + (this.Grid.ShowPager == false ? ' style="display:none;" ' : '') + '><div><table style="width: 100%; table-layout: fixed;" border="0" cellspacing="0" cellpadding="0"><tbody><tr>';
     PagerHTML += '<td id="pager_left" class="float">' + this.GeneratePagerLeft() + '</td>';
     PagerHTML += '<td style="width: 242px; WHITE-SPACE: pre" align=middle>' + this.GeneratePagerCenter() + '</td>'
     PagerHTML += '<td class="floatInverse">' + this.GeneratePagerRight() + '</td></tr></tbody></table></div></div>';

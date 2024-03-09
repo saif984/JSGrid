@@ -455,7 +455,7 @@ JSGrid.prototype.GenerateCells = function () {
         else if (this.Grid.Controls[x].ControlType == ControlType.Button)
             CellTemplate += "<td class='GridContentcbxTD'" + tdDetail + " ><span id='" + this.Grid.id + '_' + this.Grid.Controls[x].id + "_" + "~RowNo~' style='width:90%;cursor:hand;' " + this.Grid.Controls[x].AddProperty + " /></td>";
         else if (this.Grid.Controls[x].ControlType == ControlType.ButtonsList)
-            CellTemplate += `<td ${tdDetail}><div class="ButtonList"><label id='${this.Grid.id}_${this.Grid.Controls[x].id}_~RowNo~' onclick="return ${this.id}.ToggleButtonList(${x}, ~RowNo~);" ${this.Grid.Controls[x].AddProperty}>⋮</label><div id='${this.Grid.id}_${this.Grid.Controls[x].id}_bl_~RowNo~'></div></td>`;
+            CellTemplate += `<td ${tdDetail}><div><div class="ButtonList"><label id='${this.Grid.id}_${this.Grid.Controls[x].id}_~RowNo~' onclick="return ${this.id}.ToggleButtonList(${x}, ~RowNo~);" ${this.Grid.Controls[x].AddProperty}>⋮</label><div id='${this.Grid.id}_${this.Grid.Controls[x].id}_bl_~RowNo~'></div></div></td>`;
         else if (this.Grid.Controls[x].ControlType == ControlType.CheckBoxList)
             CellTemplate += "<td " + tdDetail + "><select id='" + this.Grid.id + '_' + this.Grid.Controls[x].id + "_" + "~RowNo~' class='GridDropDownlist' " + this.Grid.Controls[x].AddProperty + " style='width:100%;height:100%'></select></td>";
         else if (this.Grid.Controls[x].ControlType == "tmp")
@@ -516,14 +516,16 @@ JSGrid.prototype.GenerateGrid = function () {
         Width += isNull(this.Grid.Controls[x].Width, 0);
     var GridHTML = [];
     //GridHTML.push("<div class=''><table cellpadding='0' cellspacing='0' style='width:100%;' ><tr><td><div id='" + this.Grid.id + "_DiV' class='GridDiv' style='overflow-x:auto; width: " + ElmById(this.Grid.id).style.width + "; height: " + ElmById(this.Grid.id).style.height + "'><div class='GridHeaderResizeHandle' style='display:none;'></div><table id='tbl" + this.Grid.id + "' cellpadding='0' cellspacing='0' style='margin:0 0 0 0; table-layout:fixed; width:100%'>");
-    GridHTML.push("<div class='JSGrid'><div id='" + this.Grid.id + "_DiV' class='GridDiv' style='width: " + ElmById(this.Grid.id).style.width + "; height: " + ElmById(this.Grid.id).style.height + "; '><div class='GridHeaderResizeHandle' style='display:none;'></div>");
+    GridHTML.push("<div class='JSGrid'><div id='" + this.Grid.id + "_DiV' class='GridDiv' style='width: " + ElmById(this.Grid.id).style.width + "; height: " + ElmById(this.Grid.id).style.height + "; '><div><div class='GridHeaderResizeHandle' style='display:none;'></div>");
     GridHTML.push(this.GenerateHeader());
     GridHTML.push(this.GenerateContents());
     if (this.isSummaryExist())
         GridHTML.push(this.GenerateSummary());
     GridHTML.push(this.GenerateExtraFooter());
-    GridHTML.push("</div>");
+    GridHTML.push("</div>")
     GridHTML.push(this.GeneratePager());
+    GridHTML.push("</div>");
+    
     GridHTML.push("</div>");
     ElmById(this.Grid.id).innerHTML = GridHTML.join('');
     /*$*/("#"+this.Grid.id)[0].innerHTML= GridHTML.join('');

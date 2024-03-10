@@ -523,7 +523,11 @@ JSGrid.prototype.GenerateGrid = function () {
         GridHTML.push(this.GenerateSummary());
     GridHTML.push(this.GenerateExtraFooter());
     GridHTML.push("</div>")
+   
+    
     GridHTML.push(this.GeneratePager());
+
+  
     GridHTML.push("</div>");
     
     GridHTML.push("</div>");
